@@ -3,7 +3,9 @@ package com.rolinsf.novelbackend.controller;
 import com.rolinsf.novelbackend.core.constant.ApiRouterConst;
 import com.rolinsf.novelbackend.core.constant.SystemConfigConst;
 import com.rolinsf.novelbackend.core.resp.RestResp;
+import com.rolinsf.novelbackend.dto.req.UserLoginReqDto;
 import com.rolinsf.novelbackend.dto.req.UserRegisterReqDto;
+import com.rolinsf.novelbackend.dto.resp.UserLoginRespDto;
 import com.rolinsf.novelbackend.dto.resp.UserRegisterRespDto;
 import com.rolinsf.novelbackend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 用户模块 API 控制器
  * @author ljq4946
  */
-@Tag(name = "UserController", description = "前台门户-会员模块")
+@Tag(name = "UserController", description = "用户模块")
 @SecurityRequirement(name = SystemConfigConst.HTTP_AUTH_HEADER_NAME)
 @RestController
 @RequestMapping(ApiRouterConst.API_FRONT_USER_URL_PREFIX)
@@ -36,5 +38,15 @@ public class UserController {
     public RestResp<UserRegisterRespDto> register(@Valid @RequestBody UserRegisterReqDto dto) {
         return userService.register(dto);
     }
+
+    /**
+     * 用户登录接口(用户名，密码)
+     */
+    @Operation(summary = "用户登录接口")
+    @PostMapping("login")
+    public RestResp<UserLoginRespDto> login(@Valid @RequestBody UserLoginReqDto dto) {
+        return userService.login(dto);
+    }
+
 
 }
