@@ -1,0 +1,59 @@
+#file: noinspection SpellCheckingInspection
+#--------------------------通用配置-------------------------
+spring:
+  application:
+    # 应用名
+    name: novel-backend
+server:
+  # 端口号
+  port: 8080
+--- #---------------------数据库配置---------------------------
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/novel_rolinsf?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+--- #---------------------中间件配置---------------------------
+spring:
+  data:
+    # Redis 配置
+    redis:
+      host: 127.0.0.1
+      port: 6379
+--- #--------------------接口文档配置---------------------------
+springdoc:
+  api-docs:
+    enabled: false
+--- #----------------------邮箱配置-----------------------------
+#邮箱服务器
+spring:
+  mail:
+    host: smtp.qq.com
+    #邮箱账户
+    username: 1743931738@qq.com
+    #邮箱第三方授权码
+    password: qlalsvjzgqredeeg
+    #编码类型
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+            required: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+--- #---------------------自定义配置----------------------------
+novel:
+  # JWT 密钥
+  jwt:
+    secret: E66559580A1ADF48CDD928516062F12E
+  file:
+    # 文件上传配置
+    upload:
+      # 上传路径
+      path: /Users/xiongxiaoyang/upload
