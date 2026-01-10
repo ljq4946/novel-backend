@@ -6,7 +6,6 @@ import lombok.Data;
 
 /**
  * 用户信息 响应DTO
- *
  * @author ljq4946
  */
 @Data

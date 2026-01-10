@@ -92,6 +92,18 @@ public class CacheConst {
     public static final String USER_INFO_CACHE_NAME = "userInfoCache";
 
     /**
+     * 用户签到缓存 KEY 前缀
+     */
+    public static final String USER_SIGN_CACHE_KEY_PREFIX =
+            REDIS_CACHE_PREFIX + "userSign::";
+
+    /**
+     * 用户连续签到 KEY 前缀
+     */
+    public static final String USER_SIGN_CONTINUOUS_KEY_PREFIX =
+            USER_SIGN_CACHE_KEY_PREFIX + "continuous::";
+
+    /**
      * 作家信息缓存
      */
     public static final String AUTHOR_INFO_CACHE_NAME = "authorInfoCache";

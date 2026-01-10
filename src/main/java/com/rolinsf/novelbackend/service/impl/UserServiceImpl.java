@@ -9,18 +9,19 @@ import com.rolinsf.novelbackend.core.resp.RestResp;
 import com.rolinsf.novelbackend.core.util.JwtUtils;
 import com.rolinsf.novelbackend.dao.entity.UserInfo;
 import com.rolinsf.novelbackend.dao.mapper.UserInfoMapper;
+import com.rolinsf.novelbackend.dto.req.UserInfoUptReqDto;
 import com.rolinsf.novelbackend.dto.req.UserLoginReqDto;
 import com.rolinsf.novelbackend.dto.req.UserRegisterReqDto;
-import com.rolinsf.novelbackend.dto.resp.UserLoginRespDto;
-import com.rolinsf.novelbackend.dto.resp.UserRegisterRespDto;
+import com.rolinsf.novelbackend.dto.resp.*;
+import com.rolinsf.novelbackend.manager.UserSignManager;
 import com.rolinsf.novelbackend.manager.VerifyCodeManager;
 import com.rolinsf.novelbackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,6 +36,8 @@ public class UserServiceImpl implements UserService {
     private final VerifyCodeManager verifyCodeManager;
 
     private final JwtUtils jwtUtils;
+
+    private final UserSignManager userSignManager;
     @Override
     public RestResp<UserRegisterRespDto> register(UserRegisterReqDto dto) {
         // 校验图形验证码是否正确
@@ -91,4 +94,45 @@ public class UserServiceImpl implements UserService {
                 .uid(userInfo.getId())
                 .nickName(userInfo.getNickName()).build());
     }
+
+    @Override
+    public RestResp<UserInfoRespDto> getUserInfo(Long userId) {
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        return RestResp.ok(UserInfoRespDto.builder()
+                .nickName(userInfo.getNickName())
+                .userSex(userInfo.getUserSex())
+                .userPhoto(userInfo.getUserPhoto())
+                .build());
+    }
+
+    @Override
+    public RestResp<Void> updateUserInfo(UserInfoUptReqDto dto) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(dto.getUserId());
+        userInfo.setNickName(dto.getNickName());
+        userInfo.setUserPhoto(dto.getUserPhoto());
+        userInfo.setUserSex(dto.getUserSex());
+        userInfoMapper.updateById(userInfo);
+        return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<UserSignRespDto> sign(Long userId) {
+        UserSignRespDto signResp = userSignManager.sign(userId);
+        return RestResp.ok(signResp);
+    }
+
+    @Override
+    public RestResp<UserSignInfoRespDto> getSignStatistics(Long userId) {
+        // 获取连续签到天数
+        int continuousSignDays = userSignManager.getContinuousSignDays(userId);
+        // 获取当月签到情况
+        List<Boolean> monthSignData = userSignManager.getMonthSignData(userId);
+        // 构建并返回签到统计信息
+        return RestResp.ok(UserSignInfoRespDto.builder()
+                .continuousSignDays(continuousSignDays)
+                .monthSignData(monthSignData)
+                .build());
+    }
+
 }

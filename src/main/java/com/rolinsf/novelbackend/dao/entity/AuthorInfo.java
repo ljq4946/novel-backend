@@ -45,14 +45,9 @@ public class AuthorInfo implements Serializable {
     private String penName;
 
     /**
-     * 手机号码
+     * 邮箱
      */
-    private String telPhone;
-
-    /**
-     * QQ账号
-     */
-    private String chatAccount;
+    private String email;
 
     /**
      * 0：正常;1-封禁

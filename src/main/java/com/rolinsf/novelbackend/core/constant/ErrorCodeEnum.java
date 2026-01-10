@@ -97,6 +97,16 @@ public enum ErrorCodeEnum {
     USER_COMMENTED("A2001", "用户已发表评论"),
 
     /**
+     * 二级宏观错误码，用户签到错误
+     */
+    USER_SIGN_ERROR("A0600", "用户签到错误"),
+
+    /**
+     * 今日已签到
+     */
+    USER_SIGNED_TODAY("A0601", "今日已签到"),
+
+    /**
      * 小说不存在
      */
     BOOK_NOT_FOUND("A2002", "小说ID不存在"),

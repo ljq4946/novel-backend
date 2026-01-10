@@ -76,10 +76,4 @@ public class UserInfo implements Serializable {
      */
     private LocalDateTime updateTime;
 
-    /**
-     * 邮箱
-     */
-    private String email;
-
-
 }
