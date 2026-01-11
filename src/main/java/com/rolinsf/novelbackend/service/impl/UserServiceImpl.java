@@ -1,13 +1,16 @@
 package com.rolinsf.novelbackend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.rolinsf.novelbackend.core.constant.CommonConst;
 import com.rolinsf.novelbackend.core.constant.DatabaseConst;
 import com.rolinsf.novelbackend.core.constant.ErrorCodeEnum;
 import com.rolinsf.novelbackend.core.constant.SystemConfigConst;
 import com.rolinsf.novelbackend.core.exception.BusinessException;
-import com.rolinsf.novelbackend.core.resp.RestResp;
+import com.rolinsf.novelbackend.dto.resp.RestResp;
 import com.rolinsf.novelbackend.core.util.JwtUtils;
+import com.rolinsf.novelbackend.dao.entity.UserBookshelf;
 import com.rolinsf.novelbackend.dao.entity.UserInfo;
+import com.rolinsf.novelbackend.dao.mapper.UserBookshelfMapper;
 import com.rolinsf.novelbackend.dao.mapper.UserInfoMapper;
 import com.rolinsf.novelbackend.dto.req.UserInfoUptReqDto;
 import com.rolinsf.novelbackend.dto.req.UserLoginReqDto;
@@ -38,6 +41,8 @@ public class UserServiceImpl implements UserService {
     private final JwtUtils jwtUtils;
 
     private final UserSignManager userSignManager;
+
+    private final UserBookshelfMapper userBookshelfMapper;
     @Override
     public RestResp<UserRegisterRespDto> register(UserRegisterReqDto dto) {
         // 校验图形验证码是否正确
@@ -133,6 +138,18 @@ public class UserServiceImpl implements UserService {
                 .continuousSignDays(continuousSignDays)
                 .monthSignData(monthSignData)
                 .build());
+    }
+
+    @Override
+    public RestResp<Integer> getBookshelfStatus(Long userId, String bookId) {
+        QueryWrapper<UserBookshelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConst.UserBookshelfTable.COLUMN_USER_ID, userId)
+                .eq(DatabaseConst.UserBookshelfTable.COLUMN_BOOK_ID, bookId);
+        return RestResp.ok(
+                userBookshelfMapper.selectCount(queryWrapper) > 0
+                        ? CommonConst.YES
+                        : CommonConst.NO
+        );
     }
 
 }

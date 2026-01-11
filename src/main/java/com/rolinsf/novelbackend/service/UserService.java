@@ -1,6 +1,6 @@
 package com.rolinsf.novelbackend.service;
 
-import com.rolinsf.novelbackend.core.resp.RestResp;
+import com.rolinsf.novelbackend.dto.resp.RestResp;
 import com.rolinsf.novelbackend.dto.req.UserInfoUptReqDto;
 import com.rolinsf.novelbackend.dto.req.UserLoginReqDto;
 import com.rolinsf.novelbackend.dto.req.UserRegisterReqDto;
@@ -52,4 +52,12 @@ public interface UserService {
      * @return 当月签到记录,连续签到天数
      */
     RestResp<UserSignInfoRespDto> getSignStatistics(Long userId);
+
+    /**
+     * 查询书架状态接口
+     * @param userId 用户ID
+     * @param bookId 小说ID
+     * @return 0-不在书架 1-已在书架
+     */
+    RestResp<Integer> getBookshelfStatus(Long userId, String bookId);
 }

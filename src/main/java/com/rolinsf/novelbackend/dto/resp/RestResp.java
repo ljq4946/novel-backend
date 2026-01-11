@@ -1,4 +1,4 @@
-package com.rolinsf.novelbackend.core.resp;
+package com.rolinsf.novelbackend.dto.resp;
 
 import com.rolinsf.novelbackend.core.constant.ErrorCodeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
