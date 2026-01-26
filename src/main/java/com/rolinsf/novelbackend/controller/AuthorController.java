@@ -32,7 +32,15 @@ public class AuthorController {
     private final BookService bookService;
 
 
-
+    /**
+     * 发送邮箱验证码接口
+     */
+    @Operation(summary = "发送邮箱验证码接口")
+    @PostMapping("email_code")
+    public RestResp<Void> emailCode(@Valid @RequestBody AuthorEmaCodeReqDto dto){
+        dto.setUserId(UserHolder.getUserId());
+        return authorService.emailCode(dto);
+    }
     /**
      * 作家注册接口
      */

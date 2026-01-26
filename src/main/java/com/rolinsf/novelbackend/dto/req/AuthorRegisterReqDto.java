@@ -27,6 +27,12 @@ public class AuthorRegisterReqDto {
     @NotBlank(message = "电子邮箱不能为空！")
     @Email(message = "邮箱格式不正确！")
     private String email;
-
+    /**
+     * 验证码
+     */
+    @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message="验证码不能为空！")
+    @Pattern(regexp="^\\d{4}$",message="验证码格式不正确！")
+    private String emailCode;
 
 }

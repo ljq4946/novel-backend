@@ -151,6 +151,7 @@ public enum ErrorCodeEnum {
      */
     MIDDLEWARE_SERVICE_ERROR("C0100", "中间件服务出错");
 
+
     /**
      * 错误码
      */

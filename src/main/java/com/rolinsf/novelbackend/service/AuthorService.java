@@ -1,5 +1,6 @@
 package com.rolinsf.novelbackend.service;
 
+import com.rolinsf.novelbackend.dto.req.AuthorEmaCodeReqDto;
 import com.rolinsf.novelbackend.dto.req.AuthorRegisterReqDto;
 import com.rolinsf.novelbackend.dto.resp.RestResp;
 
@@ -22,4 +23,12 @@ public interface AuthorService {
      * @return 作家状态
      */
     RestResp<Integer> getStatus(Long userId);
+
+    /**
+     * 作家注册
+     *
+     * @param dto 邮箱和用户id
+     * @return void
+     */
+    RestResp<Void> emailCode(AuthorEmaCodeReqDto dto);
 }
